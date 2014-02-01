@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.templates.RobotMap;
 public class DriveCommand extends CommandBase {
     
     public static Joystick xbox;
+    public double shootTimer = -1;
 
     public DriveCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -41,14 +42,18 @@ public class DriveCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         
-        if(xbox.getRawButton(3)) {
+        if(xbox.getRawButton(RobotMap.compressorButton)) {
             RobotMap.compressorRelay.set(Relay.Value.kOn);
         } else {
             RobotMap.compressorRelay.set(Relay.Value.kOff);
         }
-        if(xbox.getRawButton(4)) {
-            RobotMap.solenoidRelay.set(Relay.Value.kOn);
+        if(xbox.getRawButton(RobotMap.shootButton)) {
+            if (shootTimer == -1)
+                shootTimer = System.currentTimeMillis();
+            if (System.currentTimeMillis()-shootTimer > 500)
+                RobotMap.solenoidRelay.set(Relay.Value.kOn);
         } else {
+            shootTimer = -1;
             RobotMap.solenoidRelay.set(Relay.Value.kOff);
         }
         

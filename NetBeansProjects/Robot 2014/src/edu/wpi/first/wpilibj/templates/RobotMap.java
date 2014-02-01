@@ -39,4 +39,14 @@ public class RobotMap {
     public static Relay solenoidRelay;
     
     public static double encoderOffset;
+    
+    
+    public static int compressorButton = 3;
+    public static int shootButton = 6;
+    public static int downButton = 4;
+    public static int upButton = 5;
+    
+    public static double upPosition = -0.24;
+    
+    public static int valveSwitch = 1;
 }

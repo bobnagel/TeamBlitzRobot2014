@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.templates.commands.ClawCommand;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.DriveCommand;
+import edu.wpi.first.wpilibj.templates.commands.ShootCommand;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -32,6 +33,7 @@ public class RobotTemplate extends IterativeRobot {
 
     DriveCommand driveCommand;
     ClawCommand clawCommand;
+    ShootCommand shootCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -72,6 +74,12 @@ public class RobotTemplate extends IterativeRobot {
             clawCommand = new ClawCommand();
             DriveCommand.xbox = new Joystick(1);
             ClawCommand.xbox = DriveCommand.xbox;
+            shootCommand = new ShootCommand();
+            
+           
+            
+            clawCommand.disableControl();
+            driveCommand.disableControl();
             
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
@@ -96,6 +104,7 @@ public class RobotTemplate extends IterativeRobot {
         driveCommand.start();
         clawCommand.enableControl();
         clawCommand.start();
+        shootCommand.start();
     }
 
     /**

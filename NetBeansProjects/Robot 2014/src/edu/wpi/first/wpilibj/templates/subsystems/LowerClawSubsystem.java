@@ -22,9 +22,8 @@ public class LowerClawSubsystem extends PIDSubsystem {
     public CANJaguar lowerClaw = RobotMap.lowerClaw;
     
     public LowerClawSubsystem() {
-        super("Lower Claw", 32, 0, 0, 0);
-        this.enable();
-        this.getPIDController().setOutputRange(-10, 10);
+        super("Lower Claw", 50, 0.2, 0, 0);
+        this.getPIDController().setOutputRange(-8, 8);
     }
     
     protected void initDefaultCommand() {
@@ -32,6 +31,7 @@ public class LowerClawSubsystem extends PIDSubsystem {
     
     public void enableControl() {
         try {
+            this.enable();
             lowerClaw.enableControl();
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();

@@ -18,6 +18,8 @@ public class ClawCommand extends CommandBase {
 
     public static Joystick xbox;
     public boolean initialized = false;
+    public double encoderValue = -1;
+    public double referenceTime = 0;
 
     public ClawCommand() {
         requires(upperClaw);
@@ -34,19 +36,28 @@ public class ClawCommand extends CommandBase {
 
     public void disableControl() {
         upperClaw.disableControl();
-        lowerClaw.enableControl();
+        lowerClaw.disableControl();
     }
 
     protected void execute() {
         // initialize encoder
         if (!initialized) {
+            lowerClaw.disable();
             try {
                 RobotMap.lowerClaw.setX(-6);
-                if (Math.abs(lowerClaw.lowerClaw.getOutputCurrent()) > 10) {
+                if (referenceTime == 0 ) {
+                    referenceTime = System.currentTimeMillis();
+                }
+                if (Math.abs(lowerClaw.lowerClaw.getPosition()-encoderValue) > 0.01) {
+                    encoderValue = lowerClaw.lowerClaw.getPosition();
+                    referenceTime = System.currentTimeMillis();
+                }
+                if (Math.abs(System.currentTimeMillis()-referenceTime) > 500) {
                     initialized = true;
                     RobotMap.encoderOffset = RobotMap.lowerClaw.getPosition();
                     RobotMap.lowerClaw.setX(0);
-                    lowerClaw.setSetpoint(-0.26); // Starting Position
+                    lowerClaw.enable();
+                    lowerClaw.setSetpoint(RobotMap.upPosition); // Starting Position
                 }
             } catch (CANTimeoutException ex) {
                 ex.printStackTrace();
@@ -61,6 +72,11 @@ public class ClawCommand extends CommandBase {
                 upperClaw.setSetpoint(0.000);
             }
 
+            if (xbox.getRawButton(RobotMap.downButton)) {
+                lowerClaw.setSetpoint(0);
+            } else if (xbox.getRawButton(RobotMap.upButton)) {
+                lowerClaw.setSetpoint(RobotMap.upPosition);
+            }
             /*double rightY = xbox.getRawAxis(5);
             if (rightY > 0.5) {
                 try {
