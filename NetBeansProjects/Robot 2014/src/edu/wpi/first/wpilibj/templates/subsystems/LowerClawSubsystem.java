@@ -22,7 +22,7 @@ public class LowerClawSubsystem extends PIDSubsystem {
     public CANJaguar lowerClaw = RobotMap.lowerClaw;
     
     public LowerClawSubsystem() {
-        super("Lower Claw", 50, 0.2, 0, 0);
+        super("Lower Claw", RobotMap.lowerNormalP, RobotMap.lowerNormalI, RobotMap.lowerNormalD, 0);
         this.getPIDController().setOutputRange(-8, 8);
     }
     
@@ -53,7 +53,7 @@ public class LowerClawSubsystem extends PIDSubsystem {
         }
     }
 
-    protected double returnPIDInput() {
+    public double returnPIDInput() {
         try {
             return (lowerClaw.getPosition()-RobotMap.encoderOffset);
         } catch (CANTimeoutException ex) {

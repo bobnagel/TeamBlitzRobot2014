@@ -9,6 +9,7 @@ package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.templates.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -16,8 +17,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
  */
 public class ShootCommand extends CommandBase {
     
-    long time = 0;
+    public static Joystick xbox;
+    long time = -1;
     boolean shooting = false;
+    long buttonTime = -1;
     DigitalInput pressureSwitch;
     
     public ShootCommand() {
@@ -28,19 +31,25 @@ public class ShootCommand extends CommandBase {
     }
 
     protected void execute() {
-        if (pressureSwitch.get() == false) {
+        if (pressureSwitch.get() == false && RobotMap.compressorEnabled) {
             RobotMap.compressorRelay.set(Relay.Value.kForward);
         } else {
             RobotMap.compressorRelay.set(Relay.Value.kOff);
         }
+        if (xbox.getRawButton(RobotMap.shootButton))  {
+            if (buttonTime == -1) buttonTime = System.currentTimeMillis();
+            if (System.currentTimeMillis()-buttonTime > 500) shooting = true;
+        } else {
+            buttonTime = -1;
+        }
         if (shooting) {
-            if (time == 0) {
+            if (time == -1) {
                 time = System.currentTimeMillis();
                 RobotMap.solenoidRelay.set(Relay.Value.kForward);
             } else if (System.currentTimeMillis() - time >= 100) {
                 RobotMap.solenoidRelay.set(Relay.Value.kOff);
                 shooting = false;
-                time = 0;
+                time = -1;
             }
         }
     }

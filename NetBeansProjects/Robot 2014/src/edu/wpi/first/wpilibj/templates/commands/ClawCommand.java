@@ -64,9 +64,9 @@ public class ClawCommand extends CommandBase {
             }
         } else {
 
-            if (xbox.getRawButton(2)) {
+            if (xbox.getRawButton(RobotMap.openButton)) {
                 upperClaw.setSetpoint(1.000);
-            } else if (xbox.getRawButton(1)) {
+            } else if (xbox.getRawButton(RobotMap.closeButton)) {
                 upperClaw.setSetpoint(-1.000);
             } else {
                 upperClaw.setSetpoint(0.000);

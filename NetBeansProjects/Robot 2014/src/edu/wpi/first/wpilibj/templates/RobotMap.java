@@ -41,12 +41,24 @@ public class RobotMap {
     public static double encoderOffset;
     
     
-    public static int compressorButton = 3;
+
     public static int shootButton = 6;
     public static int downButton = 4;
-    public static int upButton = 5;
+    public static int upButton = 3;
+    public static int openButton = 2;
+    public static int closeButton = 1;
     
-    public static double upPosition = -0.24;
+    public static double upPosition = -0.23;
     
     public static int valveSwitch = 1;
+    
+    
+    public static double lowerNormalP = 120;
+    public static double lowerNormalI = 0.15;
+    public static double lowerNormalD = 0;
+    public static double lowerCloseP = 120;
+    public static double lowerCloseI = 0.1;
+    public static double lowerCloseD = 0;
+    
+    public static boolean compressorEnabled = true;
 }

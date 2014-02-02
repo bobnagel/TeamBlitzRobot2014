@@ -75,6 +75,7 @@ public class RobotTemplate extends IterativeRobot {
             DriveCommand.xbox = new Joystick(1);
             ClawCommand.xbox = DriveCommand.xbox;
             shootCommand = new ShootCommand();
+            ShootCommand.xbox = DriveCommand.xbox;
             
            
             
