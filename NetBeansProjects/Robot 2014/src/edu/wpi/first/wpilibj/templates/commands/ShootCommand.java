@@ -46,7 +46,7 @@ public class ShootCommand extends CommandBase {
             if (time == -1) {
                 time = System.currentTimeMillis();
                 RobotMap.solenoidRelay.set(Relay.Value.kForward);
-            } else if (System.currentTimeMillis() - time >= 100) {
+            } else if (System.currentTimeMillis() - time >= 500) {
                 RobotMap.solenoidRelay.set(Relay.Value.kOff);
                 shooting = false;
                 time = -1;
