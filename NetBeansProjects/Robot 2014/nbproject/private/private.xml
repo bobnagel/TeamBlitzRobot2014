@@ -6,9 +6,8 @@
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/subsystems/UpperClawSubsystem.java</file>
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/RobotTemplate.java</file>
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/commands/ClawCommand.java</file>
-            <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/commands/DriveCommand.java</file>
-            <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/subsystems/LeftDriveSubsystem.java</file>
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/subsystems/LowerClawSubsystem.java</file>
+            <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/OI.java</file>
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/commands/ShootCommand.java</file>
             <file>file:/C:/Users/Owner/Documents/GitHub/TeamBlitzRobot2014/NetBeansProjects/Robot%202014/src/edu/wpi/first/wpilibj/templates/RobotMap.java</file>
         </group>

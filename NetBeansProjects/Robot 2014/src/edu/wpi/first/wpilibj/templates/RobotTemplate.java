@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.CANJaguar.ControlMode;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.templates.commands.ClawCommand;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 import edu.wpi.first.wpilibj.templates.commands.DriveCommand;
 import edu.wpi.first.wpilibj.templates.commands.ShootCommand;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -64,9 +66,10 @@ public class RobotTemplate extends IterativeRobot {
             
             RobotMap.compressorRelay = new Relay(1);
             RobotMap.compressorRelay.setDirection(Relay.Direction.kForward);
-            RobotMap.solenoidRelay = new Relay(2);
-            RobotMap.solenoidRelay.setDirection(Relay.Direction.kForward);
-            
+//            RobotMap.solenoidRelay = new Relay(2);
+//            RobotMap.solenoidRelay.setDirection(Relay.Direction.kForward);
+            RobotMap.shooterValveSolenoid = new Solenoid(1);
+            RobotMap.shooterValveSolenoid.set(false);
                         
             // Initialize all subsystems
             CommandBase.init();

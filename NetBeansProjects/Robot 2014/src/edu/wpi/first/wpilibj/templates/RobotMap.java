@@ -2,6 +2,7 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -37,6 +38,7 @@ public class RobotMap {
     
     public static Relay compressorRelay;
     public static Relay solenoidRelay;
+    public static Solenoid shooterValveSolenoid;
     
     public static double encoderOffset;
     
@@ -59,6 +61,8 @@ public class RobotMap {
     public static double lowerCloseP = 120;
     public static double lowerCloseI = 0.1;
     public static double lowerCloseD = 0;
+    public static double shootingPosMin = -0.02;
+    public static double shootingPosMax =  0.02;
     
     public static boolean compressorEnabled = true;
 }

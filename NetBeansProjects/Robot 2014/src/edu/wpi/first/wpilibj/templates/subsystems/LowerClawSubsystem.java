@@ -64,7 +64,7 @@ public class LowerClawSubsystem extends PIDSubsystem {
 
     protected void usePIDOutput(double d) {
         try {
-            System.out.println((lowerClaw.getPosition()-RobotMap.encoderOffset)+ " " + d);
+//            System.out.println((lowerClaw.getPosition()-RobotMap.encoderOffset)+ " " + d);
             lowerClaw.setX(-d);
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
