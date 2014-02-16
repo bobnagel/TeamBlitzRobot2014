@@ -57,24 +57,35 @@ public class ClawCommand extends CommandBase {
                     RobotMap.encoderOffset = RobotMap.lowerClaw.getPosition();
                     RobotMap.lowerClaw.setX(0);
                     lowerClaw.enable();
-                    lowerClaw.setSetpoint(RobotMap.upPosition); // Starting Position
                 }
             } catch (CANTimeoutException ex) {
                 ex.printStackTrace();
             }
         } else {
-
-            if (xbox.getRawButton(RobotMap.openButton)) {
+            boolean open, close, down, up;
+            if (RobotMap.auto) {
+                open = RobotMap.autoOpen;
+                close = RobotMap.autoClose;
+                up = RobotMap.autoUp;
+                down = RobotMap.autoDown;
+            }
+            else {
+                open = xbox.getRawButton(RobotMap.openButton);
+                close = xbox.getRawButton(RobotMap.closeButton);
+                up = xbox.getRawButton(RobotMap.upButton);
+                down = xbox.getRawButton(RobotMap.downButton);
+            }
+            if (open) {
                 upperClaw.setSetpoint(1.000);
-            } else if (xbox.getRawButton(RobotMap.closeButton)) {
+            } else if (close) {
                 upperClaw.setSetpoint(-1.000);
             } else {
                 upperClaw.setSetpoint(0.000);
             }
 
-            if (xbox.getRawButton(RobotMap.downButton)) {
+            if (down) {
                 lowerClaw.setSetpoint(0);
-            } else if (xbox.getRawButton(RobotMap.upButton)) {
+            } else if (up) {
                 lowerClaw.setSetpoint(RobotMap.upPosition);
             }
             /*double rightY = xbox.getRawAxis(5);

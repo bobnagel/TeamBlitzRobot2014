@@ -50,7 +50,9 @@ public class RobotMap {
     public static int openButton = 2;
     public static int closeButton = 1;
     
-    public static double upPosition = -0.23;
+    public static final double upPosition = -0.24;
+    public static final double shootingPosMin = upPosition - 0.02;
+    public static final double shootingPosMax =  upPosition + 0.02;
     
     public static int valveSwitch = 1;
     
@@ -61,8 +63,19 @@ public class RobotMap {
     public static double lowerCloseP = 120;
     public static double lowerCloseI = 0.1;
     public static double lowerCloseD = 0;
-    public static double shootingPosMin = -0.02;
-    public static double shootingPosMax =  0.02;
     
     public static boolean compressorEnabled = true;
+    
+    public static boolean auto = false;
+    public static double autoX = 0;
+    public static double autoY = 0;
+    public static boolean autoDown = true;
+    public static boolean autoUp = false;
+    public static boolean autoOpen = false;
+    public static boolean autoClose = false;
+    public static boolean autoShoot = false;
+    public static double autoTimer = -1;
+    
+    public static double leftOffset = -1;
+    public static double rightOffset = -1;
 }

@@ -40,14 +40,31 @@ public class DriveCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        
-        
-        double X = xbox.getX();
-        double Y = -xbox.getZ();//-xbox.getRawAxis(5);
-        if (Math.abs(X) < 0.1) X = 0;
-        if (Math.abs(Y) < 0.1) Y = 0;
-        X = X*Math.abs(X);
-        Y = Y*Math.abs(Y);
+        double X = 0, Y = 0;
+        if (RobotMap.rightOffset == -1) {
+            try {
+                RobotMap.rightOffset = RobotMap.rightFront.getPosition();
+                RobotMap.leftOffset = RobotMap.leftFront.getPosition();
+            } catch (CANTimeoutException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (RobotMap.auto) {
+            try {
+                X = -0*((RobotMap.rightFront.getPosition()-RobotMap.rightOffset)
+                        +(RobotMap.leftFront.getPosition()-RobotMap.leftOffset));
+            } catch (CANTimeoutException ex) {
+                ex.printStackTrace();
+            }
+            Y = RobotMap.autoY;
+        } else {
+            X = xbox.getX();
+            Y = -xbox.getZ();//-xbox.getRawAxis(5);
+            if (Math.abs(X) < 0.1) X = 0;
+            if (Math.abs(Y) < 0.1) Y = 0;
+            X = X*Math.abs(X);
+            Y = Y*Math.abs(Y);
+        }
         leftDrive.setSetpoint(-Y*360-X*240);       //NEGATE
         rightDrive.setSetpoint(Y*360-X*240);
     }

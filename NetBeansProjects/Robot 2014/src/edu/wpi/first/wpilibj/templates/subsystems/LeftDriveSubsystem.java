@@ -23,7 +23,7 @@ public class LeftDriveSubsystem extends PIDSubsystem {
     CANJaguar leftBack = RobotMap.leftBack;
     
     public LeftDriveSubsystem() {
-        super("Left Drive",0.01,0,0.00,0.015);
+        super("Left Drive",0.01,0.000,0.00,0.020);
         this.enable();
         this.getPIDController().setOutputRange(-12, 12);
     }

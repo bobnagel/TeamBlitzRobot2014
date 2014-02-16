@@ -36,6 +36,7 @@ public class RobotTemplate extends IterativeRobot {
     DriveCommand driveCommand;
     ClawCommand clawCommand;
     ShootCommand shootCommand;
+    double shootTimer = -1;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -60,6 +61,8 @@ public class RobotTemplate extends IterativeRobot {
             
             RobotMap.leftFront.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
             RobotMap.rightFront.setSpeedReference(CANJaguar.SpeedReference.kQuadEncoder);
+            RobotMap.leftFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
+            RobotMap.rightFront.setPositionReference(CANJaguar.PositionReference.kQuadEncoder);
             
             RobotMap.leftFront.configEncoderCodesPerRev(360);
             RobotMap.rightFront.configEncoderCodesPerRev(250);
@@ -91,18 +94,62 @@ public class RobotTemplate extends IterativeRobot {
     }
 
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-        //autonomousCommand.start();
+        RobotMap.auto = true;
+        RobotMap.autoTimer = System.currentTimeMillis()+500;
+        driveCommand.enableControl();
+        driveCommand.start();
+        clawCommand.enableControl();
+        clawCommand.start();
+        shootCommand.start();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        RobotMap.auto = true;
+        // Start closing claw
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 1000) {
+            RobotMap.autoClose = true;
+            RobotMap.autoOpen = false;
+        }
+        // Start driving forward
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 1500) {
+            RobotMap.autoY = 0.50;
+        }
+        // Raise bottom claw
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 2500) {
+            RobotMap.autoUp = true;
+            RobotMap.autoDown = false;
+        }
+        // Open the claw
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 3500) {
+            RobotMap.autoClose = false;
+            RobotMap.autoOpen = true;
+        }
+        // Stop opening
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 4000) {
+            RobotMap.autoOpen = false;
+        }
+        try {
+            // Shoot
+            System.out.println(RobotMap.leftFront.getPosition()-RobotMap.leftOffset);
+            if (Math.abs(RobotMap.leftFront.getPosition()-RobotMap.leftOffset) >= 8.5 && shootTimer == -1) {
+                RobotMap.autoShoot = true;
+                shootTimer = System.currentTimeMillis();
+            }
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        if (shootTimer != -1 && System.currentTimeMillis()-shootTimer > 500) {
+            RobotMap.autoShoot = false;
+            RobotMap.autoY = 0;
+        }
         Scheduler.getInstance().run();
     }
 
     public void teleopInit() {
+        RobotMap.auto = false;
         System.out.println("TELEOP INIT");
         driveCommand.enableControl();
         driveCommand.start();
@@ -115,6 +162,8 @@ public class RobotTemplate extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+        RobotMap.auto = false;
+        RobotMap.autoShoot = false;
         Scheduler.getInstance().run();
     }
     

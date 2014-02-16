@@ -21,13 +21,14 @@ public class ShootCommand extends CommandBase {
     long time = -1;
     boolean shooting = false;
     long buttonTime = -1;
-    DigitalInput pressureSwitch;
+    DigitalInput pressureSwitch = null;
 
     public ShootCommand() {
     }
 
     protected void initialize() {
-        pressureSwitch = new DigitalInput(1);
+        if (pressureSwitch == null)
+            pressureSwitch = new DigitalInput(1);
     }
 
     protected void execute() {
@@ -36,7 +37,7 @@ public class ShootCommand extends CommandBase {
         } else {
             RobotMap.compressorRelay.set(Relay.Value.kOff);
         }
-        if (xbox.getRawButton(RobotMap.shootButton)) {
+        if (xbox.getRawButton(RobotMap.shootButton) || RobotMap.autoShoot) {
             if (safeToShoot()) {
                 if (buttonTime == -1) {
                     buttonTime = System.currentTimeMillis();
@@ -70,7 +71,7 @@ public class ShootCommand extends CommandBase {
     public boolean safeToShoot() {
         double lowerClawPos = RobotMap.shootingPosMin - 1;
         try {
-            lowerClawPos = RobotMap.lowerClaw.getPosition();
+            lowerClawPos = RobotMap.lowerClaw.getPosition() - RobotMap.encoderOffset;
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }
