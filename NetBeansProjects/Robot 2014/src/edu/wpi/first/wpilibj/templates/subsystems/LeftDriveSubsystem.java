@@ -23,7 +23,7 @@ public class LeftDriveSubsystem extends PIDSubsystem {
     CANJaguar leftBack = RobotMap.leftBack;
     
     public LeftDriveSubsystem() {
-        super("Left Drive",0.01,0.000,0.00,0.020);
+        super("Left Drive",0.00,0.0,0,0.030);
         this.enable();
         this.getPIDController().setOutputRange(-12, 12);
     }
@@ -49,7 +49,7 @@ public class LeftDriveSubsystem extends PIDSubsystem {
 
     public double returnPIDInput() {
         try {
-            return -leftFront.getSpeed();
+            return leftFront.getSpeed();
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }
@@ -57,10 +57,14 @@ public class LeftDriveSubsystem extends PIDSubsystem {
     }
 
     public void usePIDOutput(double d) {
-        //System.out.println("Left " + getSetpoint() + " " + returnPIDInput() + " " + d);
         try {
-            leftBack.setX(d);
-            leftFront.setX(d);
+            System.out.println("Left " + getSetpoint() + " " + returnPIDInput() + " " + d + " " + leftFront.getOutputCurrent() + " " + leftBack.getOutputCurrent());
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        try {
+            leftBack.setX(-d);
+            leftFront.setX(-d);
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }

@@ -48,6 +48,10 @@ public class RobotTemplate extends IterativeRobot {
             RobotMap.leftBack = new CANJaguar(RobotMap.leftBackMotor, ControlMode.kVoltage);
             RobotMap.rightFront = new CANJaguar(RobotMap.rightForwardMotor, ControlMode.kVoltage);
             RobotMap.rightBack = new CANJaguar(RobotMap.rightBackMotor, ControlMode.kVoltage);
+            RobotMap.leftFront.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            RobotMap.leftBack.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            RobotMap.rightFront.configNeutralMode(CANJaguar.NeutralMode.kBrake);
+            RobotMap.rightBack.configNeutralMode(CANJaguar.NeutralMode.kBrake);
             
             RobotMap.upperClaw = new CANJaguar(RobotMap.upperClawMotor, ControlMode.kVoltage);
             RobotMap.upperClaw.configNeutralMode(CANJaguar.NeutralMode.kBrake);

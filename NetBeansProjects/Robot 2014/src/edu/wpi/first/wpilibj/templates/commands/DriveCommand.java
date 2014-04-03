@@ -65,7 +65,7 @@ public class DriveCommand extends CommandBase {
             X = X*Math.abs(X);
             Y = Y*Math.abs(Y);
         }
-        leftDrive.setSetpoint(-Y*360-X*240);       //NEGATE
+        leftDrive.setSetpoint(Y*360+X*240);       //NEGATE
         rightDrive.setSetpoint(Y*360-X*240);
     }
 

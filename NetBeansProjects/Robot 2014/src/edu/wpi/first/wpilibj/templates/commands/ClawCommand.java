@@ -71,7 +71,8 @@ public class ClawCommand extends CommandBase {
             }
             else {
                 open = xbox.getRawButton(RobotMap.openButton);
-                close = xbox.getRawButton(RobotMap.closeButton);
+                RobotMap.closing = (xbox.getRawButton(RobotMap.closeButton)||RobotMap.closing)&&(!open);
+                close = RobotMap.closing;
                 up = xbox.getRawButton(RobotMap.upButton);
                 down = xbox.getRawButton(RobotMap.downButton);
             }

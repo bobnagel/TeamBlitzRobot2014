@@ -50,6 +50,8 @@ public class RobotMap {
     public static int openButton = 2;
     public static int closeButton = 1;
     
+    public static boolean closing = false;
+    
     public static final double upPosition = -0.24;
     public static final double shootingPosMin = upPosition - 0.02;
     public static final double shootingPosMax =  upPosition + 0.02;
