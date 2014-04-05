@@ -111,9 +111,9 @@ public class RobotTemplate extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        RobotMap.auto = true;
+        if (!RobotMap.auto) return;
         // Start closing claw
-        if (System.currentTimeMillis()-RobotMap.autoTimer > 1000) {
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 000) {
             RobotMap.autoClose = true;
             RobotMap.autoOpen = false;
         }
@@ -122,7 +122,7 @@ public class RobotTemplate extends IterativeRobot {
             RobotMap.autoY = 0.50;
         }
         // Raise bottom claw
-        if (System.currentTimeMillis()-RobotMap.autoTimer > 2500) {
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 2000) {
             RobotMap.autoUp = true;
             RobotMap.autoDown = false;
         }
@@ -135,19 +135,26 @@ public class RobotTemplate extends IterativeRobot {
         if (System.currentTimeMillis()-RobotMap.autoTimer > 4000) {
             RobotMap.autoOpen = false;
         }
-        try {
+        /*try {
             // Shoot
             System.out.println(RobotMap.leftFront.getPosition()-RobotMap.leftOffset);
             if (Math.abs(RobotMap.leftFront.getPosition()-RobotMap.leftOffset) >= 8.5 && shootTimer == -1) {
                 RobotMap.autoShoot = true;
                 shootTimer = System.currentTimeMillis();
+                RobotMap.autoY = 0;
             }
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
+        }*/
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 4100 && shootTimer ==-1) {
+            RobotMap.autoShoot = true;
+            shootTimer = System.currentTimeMillis();
+            RobotMap.autoY = 0;
         }
         if (shootTimer != -1 && System.currentTimeMillis()-shootTimer > 500) {
             RobotMap.autoShoot = false;
-            RobotMap.autoY = 0;
+            RobotMap.auto = false;
+            RobotMap.autoTimer = -1;
         }
         Scheduler.getInstance().run();
     }

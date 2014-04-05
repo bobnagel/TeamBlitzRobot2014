@@ -19,6 +19,7 @@ public class ShootCommand extends CommandBase {
 
     public static Joystick xbox;
     long time = -1;
+    long clawTime = -1;
     boolean shooting = false;
     long buttonTime = -1;
     DigitalInput pressureSwitch = null;
@@ -38,7 +39,7 @@ public class ShootCommand extends CommandBase {
             RobotMap.compressorRelay.set(Relay.Value.kOff);
         }
         if (xbox.getRawButton(RobotMap.shootButton) || RobotMap.autoShoot) {
-            if (safeToShoot()) {
+            if (safeToShoot() || (RobotMap.auto&&RobotMap.autoShoot)) {
                 if (buttonTime == -1) {
                     buttonTime = System.currentTimeMillis();
                 }
@@ -57,6 +58,7 @@ public class ShootCommand extends CommandBase {
                 time = System.currentTimeMillis();
 //                RobotMap.solenoidRelay.set(Relay.Value.kForward);
                 RobotMap.shooterValveSolenoid.set(true);
+
                 System.out.println("turned shooter solenoid on");
             } else if (System.currentTimeMillis() - time >= 500) {
 //                RobotMap.solenoidRelay.set(Relay.Value.kOff);
@@ -65,6 +67,7 @@ public class ShootCommand extends CommandBase {
                 shooting = false;
                 time = -1;
             }
+
         }
     }
 
