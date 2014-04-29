@@ -119,7 +119,7 @@ public class RobotTemplate extends IterativeRobot {
         }
         // Start driving forward
         if (System.currentTimeMillis()-RobotMap.autoTimer > 1500) {
-            RobotMap.autoY = 0.50;
+            RobotMap.autoY = 0.40;
         }
         // Raise bottom claw
         if (System.currentTimeMillis()-RobotMap.autoTimer > 2000) {
@@ -146,7 +146,7 @@ public class RobotTemplate extends IterativeRobot {
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }*/
-        if (System.currentTimeMillis()-RobotMap.autoTimer > 4100 && shootTimer ==-1) {
+        if (System.currentTimeMillis()-RobotMap.autoTimer > 5000 && shootTimer ==-1) {
             RobotMap.autoShoot = true;
             shootTimer = System.currentTimeMillis();
             RobotMap.autoY = 0;

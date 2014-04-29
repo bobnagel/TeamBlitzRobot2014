@@ -52,7 +52,7 @@ public class RobotMap {
     
     public static boolean closing = false;
     
-    public static final double upPosition = -0.24;
+    public static final double upPosition = -0.23;
     public static final double shootingPosMin = upPosition - 0.02;
     public static final double shootingPosMax =  upPosition + 0.02;
     
